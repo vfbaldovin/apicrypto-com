@@ -1,16 +1,15 @@
 package com.web.apicrypto.service;
 
+import com.web.apicrypto.error.ErrorConstants;
 import com.web.apicrypto.exceptions.ApiCryptoException;
 import com.web.apicrypto.model.NotificationEmail;
 import com.web.apicrypto.model.User;
 import com.web.apicrypto.model.VerificationToken;
-import com.web.apicrypto.model.dto.AuthenticationResponse;
-import com.web.apicrypto.model.dto.LoginRequest;
-import com.web.apicrypto.model.dto.RefreshTokenRequest;
-import com.web.apicrypto.model.dto.RegisterRequest;
+import com.web.apicrypto.model.dto.*;
 import com.web.apicrypto.repository.UserRepository;
 import com.web.apicrypto.repository.VerificationTokenRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,11 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 @Transactional
 public class AuthService {
 
@@ -39,8 +39,31 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    @Value("${application.url}")
+    private String URL;
 
-    public void signup(RegisterRequest registerRequest) {
+    public AuthService(PasswordEncoder passwordEncoder, UserRepository userRepository, VerificationTokenRepository verificationTokenRepository, MailService mailService, AuthenticationManager authenticationManager, JwtProvider jwtProvider, RefreshTokenService refreshTokenService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.verificationTokenRepository = verificationTokenRepository;
+        this.mailService = mailService;
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+        this.refreshTokenService = refreshTokenService;
+    }
+
+    public AuthResponse signup(RegisterRequest registerRequest) {
+        Optional<User> userOptional = userRepository.findByUsername(registerRequest.getUsername());
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (!user.isEnabled()) {
+                resendMailActivation(user);
+                return AuthResponse.build(ErrorConstants.RESEND_ACTIVATION_MAIL);
+            }
+            return AuthResponse.build(ErrorConstants.EMAIL_TAKEN);
+        }
+
         User user = new User();
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
@@ -56,7 +79,9 @@ public class AuthService {
 //                user.getEmail(), "Thank you for signing up to Spring Reddit, " +
 //                "please click on the below url to activate your account : " +
 //                "http://localhost:8080/api/auth/accountVerification/" + token));
-        System.out.println("Activation link = " + ("http://localhost:8080/api/auth/accountVerification/" + token));
+        System.out.println("Activation link = " + (URL + "/api/auth/accountVerification/" + token));
+
+        return AuthResponse.build(ErrorConstants.SUCCESS);
     }
 
     @Transactional(readOnly = true)
@@ -74,12 +99,25 @@ public class AuthService {
         userRepository.save(user);
     }
 
+    public void resendMailActivation(User user) {
+        String token = generateVerificationToken(user);
+        //TODO: change to send Email to current user
+        System.out.println("Activation link = " + (URL + "/api/auth/accountVerification/" + token));
+
+//        mailService.sendMail(new NotificationEmail("Welcome to apicrypto.com!",
+//                user.getUsername(), "<html><body><div>Hello,</div><br><div>Congratulations! You have taken your first step towards your project and we are excited to share with you relevant cryptocurrencies data feeds.\n</div><br>" +
+//                "<div>Access the following link to activate your account:</div>" +
+//                "<br><div><a href = \"" + URL + "accountVerification/"+token+"\">" + URL +"accountVerification</a></div>" +
+//                "<br><div>If something is not clear, let us know how we can help you.</div><br><div>Best Regards,</div><a href=\""+ URL +"\">Api Crypto Team</a></body></html>"));
+    }
+
     private String generateVerificationToken(User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setUser(user);
-
+        LocalDateTime timestamp = LocalDateTime.now().plus(1, ChronoUnit.HOURS);
+        verificationToken.setExpiryDate(timestamp);
         verificationTokenRepository.save(verificationToken);
         return token;
     }

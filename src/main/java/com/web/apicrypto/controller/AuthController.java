@@ -1,9 +1,6 @@
 package com.web.apicrypto.controller;
 
-import com.web.apicrypto.model.dto.AuthenticationResponse;
-import com.web.apicrypto.model.dto.LoginRequest;
-import com.web.apicrypto.model.dto.RefreshTokenRequest;
-import com.web.apicrypto.model.dto.RegisterRequest;
+import com.web.apicrypto.model.dto.*;
 import com.web.apicrypto.service.AuthService;
 import com.web.apicrypto.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
@@ -23,9 +20,9 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        authService.signup(registerRequest);
-        return new ResponseEntity<>("User Registration Successful", OK);
+    public ResponseEntity<AuthResponse> signup(@RequestBody RegisterRequest registerRequest) {
+        AuthResponse authResponse = authService.signup(registerRequest);
+        return new ResponseEntity<>(authResponse, OK);
     }
 
     @GetMapping("accountVerification/{token}")

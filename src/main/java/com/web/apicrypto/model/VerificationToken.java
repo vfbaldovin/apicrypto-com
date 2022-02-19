@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +23,5 @@ public class VerificationToken {
     @DBRef
     private User user;
     @Field("expiryDate")
-    private Instant expiryDate;
+    private LocalDateTime expiryDate;
 }
