@@ -1,4 +1,4 @@
-package com.web.apicrypto.api.model;
+package com.web.apicrypto.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,21 +7,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("user")
-public class User {
+@Document("refresh_token")
+public class RefreshToken {
     @Id
     private String id;
-    @Field("username")
-    private String username;
-    @Field("password")
-    private String password;
-    @Field("created")
-    private LocalDateTime created;
-    @Field("enabled")
-    private boolean enabled;
+    @Field("token")
+    private String token;
+    @Field("createdDate")
+    private Instant createdDate;
 }
