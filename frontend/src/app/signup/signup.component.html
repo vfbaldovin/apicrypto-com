@@ -1,0 +1,89 @@
+<main id="main">
+  <div class="about">
+
+    <div class="web-subscribe">
+      <div class="wrapper">
+        <div class="flow all-center headline"><h2 class="headline__title">Sign in to your account</h2>
+        </div>
+        <form action="https://services.google.com/fb/submissions/591768a1-61a6-4f16-8e3c-adf1661539da/"
+              class="flow gap-top-size-2" method="post">
+          <div>
+            <label for="sub-email" class="visually-hidden">Your Email</label>
+            <input id="sub-email" type="email" name="EmailAddress" required="true" placeholder="Your Email">
+          </div>
+          <div>
+            <label for="password" class="visually-hidden">Your Email</label>
+            <input id="password" type="password" name="Password" required="true" placeholder="Password">
+          </div>
+          <div class="all-center"><p class="color-mid-text">Don't worry, no spam here! Your information will only be
+            used for web.dev and Chrome related updates and our emails are typically no more than 1-2 times a month. You
+            can unsubscribe anytime.</p></div>
+          <div class="cluster gutter-base flex-align-start gap-top-size-2"><input id="sub-newsletter" type="checkbox"
+                                                                                  name="WebDevNewsletter" required=""
+                                                                                  value="Unconfirmed"> <label
+            for="sub-newsletter">Add me to the web.dev mailing list.</label></div>
+          <div class="cluster gutter-base flex-align-start"><input id="sub-pii-spii" type="checkbox"
+                                                                   name="collects-pii-spii-checkbox" required=""
+                                                                   value="Unconfirmed"> <label for="sub-pii-spii">I
+            accept Google's <a href="https://policies.google.com/terms" rel="noopener" target="_blank">Terms and
+              Conditions</a> and acknowledge that my information will be used in accordance with Google's <a
+              href="https://policies.google.com/privacy" rel="noopener" target="_blank">Privacy Policy</a>.</label>
+          </div>
+          <div class="visually-hidden"><label for="sub-language">Language</label> <select id="sub-language"
+                                                                                          name="LanguagePreference"
+                                                                                          required="" tabindex="-1">
+            <option value="en-US" selected="">en-US</option>
+          </select></div>
+          <div class="all-center gap-top-size-1">
+            <div>
+              <div class="g-recaptcha" data-callback="recaptchaSuccess"
+                   data-sitekey="6Lfqf9YdAAAAAKUVvj6y53E_tMMlnj8dt1fpo-FV">
+                <div style="width: 304px; height: 78px;">
+                  <div>
+                    <iframe title="reCAPTCHA"
+                            src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lfqf9YdAAAAAKUVvj6y53E_tMMlnj8dt1fpo-FV&amp;co=aHR0cHM6Ly93ZWIuZGV2OjQ0Mw..&amp;hl=en&amp;v=1B_yv3CBEV10KtI2HJ6eEXhJ&amp;size=normal&amp;cb=t3yuuo2b74tj"
+                            width="304" height="78" role="presentation" name="a-hmkthid820s2" frameborder="0"
+                            scrolling="no"
+                            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"></iframe>
+                  </div>
+                  <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response"
+                            style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+                </div>
+                <iframe style="display: none;"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="gap-top-size-2">
+            <div class="hidden-yes subscribe__error">
+              <aside class="flow aside bg-state-warn-bg color-state-warn-text">
+                <p class="cluster"><span class="color-state-warn-text aside__icon box-block"><svg height="24"
+                                                                                                  viewBox="0 0 24 24"
+                                                                                                  width="24"
+                                                                                                  xmlns="http://www.w3.org/2000/svg"
+                                                                                                  aria-label="Warning sign"
+                                                                                                  role="img"
+                                                                                                  fill="currentColor"><path
+                  d="M23 21L12 2 1 21h22zm-12-3v-2h2v2h-2zm0-4h2v-4h-2v4z" fill-rule="evenodd"
+                  clip-rule="evenodd"></path></svg></span><strong>Warning</strong></p>
+                <div class="flow"><p class="subscribe__error__message"></p></div>
+              </aside>
+            </div>
+            <noscript>&amp;amp;lt;aside class="flow aside bg-state-warn-bg color-state-warn-text"&amp;amp;gt;&amp;amp;lt;p
+              class=cluster&amp;amp;gt;&amp;amp;lt;span class="color-state-warn-text aside__icon box-block"&amp;amp;gt;&amp;amp;lt;svg
+              height=24 viewBox="0 0 24 24" width=24 xmlns=http://www.w3.org/2000/svg aria-label="Warning sign" role=img
+              fill=currentColor&amp;amp;gt;&amp;amp;lt;path d="M23 21L12 2 1 21h22zm-12-3v-2h2v2h-2zm0-4h2v-4h-2v4z"
+              fill-rule=evenodd clip-rule=evenodd /&amp;amp;gt;&amp;amp;lt;/svg&amp;amp;gt;&amp;amp;lt;/span&amp;amp;gt;&amp;amp;lt;strong&amp;amp;gt;Warning&amp;amp;lt;/strong&amp;amp;gt;&amp;amp;lt;/p&amp;amp;gt;&amp;amp;lt;div
+              class=flow&amp;amp;gt;It seems like you have JavaScript disabled or it failed to load. After you submit
+              the form, press the back button to return to the site.&amp;amp;lt;/div&amp;amp;gt;&amp;amp;lt;/aside&amp;amp;gt;
+            </noscript>
+          </div>
+          <div class="all-center gap-top-size-1">
+            <div>
+              <button class="button" data-type="primary" type="submit">subscribe</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

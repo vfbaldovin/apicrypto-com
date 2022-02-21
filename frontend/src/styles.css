@@ -63,7 +63,8 @@
   --color-code-quaternary-bright: #9cc598;
   --color-highlights-magenta: #ff00b8;
   --color-highlights-green: #128500;
-  --color-highlights-purple: #7600ae
+  --color-highlights-purple: #7600ae;
+  --color-core-principal: #a435f0;
 }
 
 :root {
