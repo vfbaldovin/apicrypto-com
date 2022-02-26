@@ -6,8 +6,13 @@
   max-width: 30rem;
 }
 
+input {
+  all: initial;
+}
+
 .web-subscribe {
   background: var(--color-mid-bg);
+  min-height: -webkit-fill-available;
 }
 
 .button {
@@ -48,6 +53,10 @@
   background-color: var(--color-shades-gray-bright);
 }
 
+input {
+  width: -webkit-fill-available;
+}
+
 @media (min-width:1281px) {
   .line-1 {
     width: 10rem;
@@ -56,7 +65,7 @@
     top: 16rem;
     transform: skewY(-12deg);
     height: 40px;
-    background-color: var(--color-core-primary);
+    background-color: var(--color-core-primary-glare);
   }
 
   .line-2 {
@@ -76,7 +85,7 @@
     top: 25rem;
     transform: skewY(-12deg);
     height: 40px;
-    background-color: var(--color-core-primary);
+    background-color: var(--color-core-primary-glare);
   }
 
   .line-4 {
@@ -89,4 +98,5 @@
     background-color: lightblue;
   }
 }
+
 

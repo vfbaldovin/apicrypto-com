@@ -27,13 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": [
-              "src/index-7ba3e52d.js",
-              "src/index-99222b50.js",
-              "src/index-f3762991.js",
-              "src/store-1afdb64d.js"
             ]
           },
           "configurations": {

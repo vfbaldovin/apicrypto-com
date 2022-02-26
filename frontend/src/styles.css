@@ -715,9 +715,9 @@ input[type=text], input[type=email], input[type=password], textarea {
   width: 100%;
   background-color: var(--color-core-bg);
   color: var(--color-core-text);
-  border: 1px solid var(--color-stroke);
+  /*border: 1px solid var(--color-stroke);*/
   font: inherit;
-  padding: .8em;
+  /*padding: .8em;*/
   line-height: 1;
   border-radius: 3px
 }
@@ -2357,9 +2357,9 @@ figure > .fixed-width-img[width], figure > [width].w-screenshot {
 }
 
 .site-footer__brand-nav {
-  border-block: 1px solid var(--color-stroke);
-  padding: 1rem 0;
-  margin: clamp(1.375rem, 1.2rem + 0.89vw, 2rem) 0
+  border-top: 1px solid var(--color-stroke);
+  /*padding: 1rem 0;*/
+  /*margin: clamp(1.375rem, 1.2rem + 0.89vw, 2rem) 0*/
 }
 
 .site-footer__brand-nav img {
@@ -5609,7 +5609,15 @@ web-tabs.unresolved {
 }
 
 
+mat-form-field {
+  width: -webkit-fill-available;
+}
+.mat-form-field-wrapper {
+  padding-bottom: unset;
+}
 
 
 
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,34 @@
+.site-footer {
+  padding-bottom: 0.5rem;
+}
+
+.pi {
+  font-size: 1.5rem;
+}
+.pi-facebook {
+  color: #1877f2;
+}
+
+.pi-github {
+  color: #24292f;
+}
+
+.pi-linkedin {
+  color: #0a66c2;
+}
+
+.pi-twitter {
+  color:#1d9bf0;
+}
+
+.pi-telegram {
+  color:#2a9ef1;
+}
+
+.pi-instagram {
+  color:#fd1d1d;
+}
+
+.pi-youtube{
+  color: #ff0000;
+}

@@ -1,20 +1,29 @@
 <main id="main">
   <div class="about">
-
     <div class="web-subscribe">
       <div class="wrapper">
         <div class="flow all-center headline"><h2 class="headline__title">Sign in to your account</h2>
         </div>
-        <form action="https://services.google.com/fb/submissions/591768a1-61a6-4f16-8e3c-adf1661539da/"
+        <form [formGroup]="signin" action="https://services.google.com/fb/submissions/591768a1-61a6-4f16-8e3c-adf1661539da/"
               class="flow gap-top-size-2" method="post">
-          <div>
-            <label for="sub-email" class="visually-hidden">Your Email</label>
-            <input id="sub-email" type="email" name="EmailAddress" required="true" placeholder="Your Email">
-          </div>
-          <div>
-            <label for="password" class="visually-hidden">Your Email</label>
-            <input id="password" type="password" name="Password" required="true" placeholder="Password">
-          </div>
+          <!--          <div>-->
+          <!--            <label for="sub-email" class="visually-hidden">Your Email</label>-->
+          <!--            <input id="sub-email" type="email" name="EmailAddress" required="true" placeholder="Your Email">-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <label for="password" class="visually-hidden">Your Email</label>-->
+          <!--            <input id="password" type="password" name="Password" required="true" placeholder="Password">-->
+          <!--          </div>-->
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="firstName" matInput placeholder="Email">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
           <div class="all-center gap-top-size-1">
             <div>
               <button class="button" data-type="primary" type="submit">sign in</button>
@@ -25,10 +34,10 @@
 
       <div class="all-center linebreak outside-1">
         Don't have an account? &nbsp;
-        <a class="color-mid-text" href="https://policies.google.com/terms" rel="noopener">Sign up</a>
+        <a class="color-mid-text" routerLink="/signup" rel="noopener">Sign up</a>
       </div>
       <div class="all-center linebreak outside">
-        <a class="color-mid-text" href="https://policies.google.com/terms" rel="noopener">Forgot your password?</a>
+        <a class="color-mid-text" routerLink="/recover" rel="noopener">Forgot your password?</a>
       </div>
     </div>
 
