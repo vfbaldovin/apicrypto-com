@@ -13,8 +13,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class SignupComponent implements OnInit {
   signupForm: any;
   signupRequestPayload: SignupRequestPayload;
-  username: string = '';
-  password: string = '';
+  submitted = false;
+  success = '';
+  // username: string = '';
+  // password: string = '';
 
   // constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
   //   this.signupRequestPayload = {
@@ -25,23 +27,44 @@ export class SignupComponent implements OnInit {
   // }
   constructor(private router: Router, private formBuilder: FormBuilder) {
     this.signupRequestPayload = {
-      username: '',
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     };
   }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
-      username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
     })
   }
 
+  confirmPassword() {
+    // return this.signupForm.value['password'].valid;
+    return (this.signupForm.value['password'] === this.signupForm.value['confirmPassword']) && this.signupForm.value['password'].touched && this.signupForm.value['confirmPassword'].touched
+  }
+
   signup(signupForm: any) {
-    this.signupRequestPayload.username = signupForm.username;
+    console.log("BAAA")
+    this.signupRequestPayload.email = signupForm.email;
     this.signupRequestPayload.password = signupForm.password;
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.signupForm.invalid) {
+      this.signupForm.getvalid
+      console.log("adsfa")
+
+      return;
+    }
+
+    this.success = JSON.stringify(this.signupForm.value);
+
+    console.log(this.signupRequestPayload)
 
   }
+
+
 }

@@ -6,21 +6,32 @@
         <div class="flow all-center headline"><h2 class="headline__title">Create your Apicrypto Account</h2>
         </div>
 <!--        <form [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)"-->
-            <form  [formGroup]="signupForm" class="flow gap-top-size-2" method="post">
-          <mat-form-field appearance="outline">
+          <form  [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)" class="flow gap-top-size-2" method="post">
+          <mat-form-field appearance="outline" hideRequiredMarker>
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Email">
+            <input matInput formControlName="email" placeholder="Email" autofocus>
           </mat-form-field>
-<!--          <div class="switcher">-->
-<!--            <mat-form-field appearance="outline">-->
-<!--              <mat-label>Password</mat-label>-->
-<!--              <input formControlName="password" matInput placeholder="Password">-->
-<!--            </mat-form-field>-->
-<!--            <mat-form-field appearance="outline">-->
-<!--              <mat-label>Confirm</mat-label>-->
-<!--              <input matInput placeholder="Confirm">-->
-<!--            </mat-form-field>-->
-<!--          </div>-->
+            <span class="mat-error" *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+              <i class="pi pi-exclamation-circle"></i> Please provide a valid email address
+            </span>
+          <div class="switcher">
+            <mat-form-field appearance="outline" hideRequiredMarker>
+              <mat-label>Password</mat-label>
+              <input formControlName="password" matInput placeholder="Password">
+            </mat-form-field>
+            <mat-form-field appearance="outline" hideRequiredMarker>
+              <mat-label>Confirm</mat-label>
+              <input formControlName="confirmPassword" matInput placeholder="Confirm">
+            </mat-form-field>
+          </div>
+          <span class="mat-error" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched; else second">
+            <i class="pi pi-exclamation-circle"></i> Use 8 characters or more for your password
+          </span>
+          <ng-template #second>
+            <span class="mat-error" *ngIf="signupForm.get('password').value!=signupForm.get('confirmPassword').value && signupForm.get('confirmPassword').touched">
+            <i class="pi pi-exclamation-circle"></i> Passwords do not match
+          </span>
+          </ng-template>
 <!--          <div class="all-center"><p class="color-mid-text">Don't worry, no spam here! Your information will only be-->
 <!--            used for web.dev and Chrome related updates and our emails are typically no more than 1-2 times a month. You-->
 <!--            can unsubscribe anytime.</p></div>-->
@@ -29,7 +40,7 @@
             <label for="sub-newsletter">Add me to the apicrypto.com mailing list.</label>
           </div>
           <div class="cluster gutter-base flex-align-start">
-            <input id="sub-pii-spii" type="checkbox" name="collects-pii-spii-checkbox" required="" value="Unconfirmed">
+            <input id="sub-pii-spii" type="checkbox" name="collects-pii-spii-checkbox" required>
             <label for="sub-pii-spii">I accept Apicrypto's <a href="https://policies.google.com/terms" rel="noopener" target="_blank">Terms and
               Conditions</a> and acknowledge that my information will be used in accordance with Apicrypto's <a
               href="https://policies.google.com/privacy" rel="noopener" target="_blank">Privacy Policy</a>.

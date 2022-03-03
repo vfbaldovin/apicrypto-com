@@ -49,6 +49,9 @@
   background-color: var(--color-shades-gray-bright);
 }
 
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color: gainsboro;
+}
 @media (min-width:1281px) {
   .line-1 {
     width: 10rem;
