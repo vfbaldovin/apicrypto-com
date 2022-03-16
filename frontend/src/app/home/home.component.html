@@ -82,8 +82,18 @@
                       </svg>
                     </div>
                   </div>
-                  <img alt="i18n.courses.learn_design.title branding" src="/images/courses/design/card.svg"
-                       importance="high">
+<!--                  <img alt="i18n.courses.learn_design.title branding" src="/images/courses/design/card.svg"-->
+<!--                       importance="high">-->
+                  <div style="text-align:center">
+                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
+                               [series]="chartOptions.series"
+                               [chart]="chartOptions.chart"
+                               [xaxis]="chartOptions.xaxis"
+                               [fill]="chartOptions.fill"
+                               [stroke]="chartOptions.stroke"
+                               [markers]="chartOptions.markers"
+                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+                  </div>
                   <div class="flow card__content"><p class="text-size-0">Let's explore all aspects of responsive design,
                     learning how to make sites that look great and work well for everyone.</p></div>
                 </a></div>
@@ -101,8 +111,16 @@
                       </svg>
                     </div>
                   </div>
-                  <img alt="i18n.courses.learn_forms.title branding" src="/images/courses/forms/card.svg"
-                       importance="high">
+                  <div style="text-align:center">
+                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
+                               [series]="chartOptions.series"
+                               [chart]="chartOptions.chart"
+                               [xaxis]="chartOptions.xaxis"
+                               [fill]="chartOptions.fill"
+                               [stroke]="chartOptions.stroke"
+                               [markers]="chartOptions.markers"
+                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+                  </div>
                   <div class="flow card__content"><p class="text-size-0">A course about HTML forms to help you improve
                     your web developer expertise.</p></div>
                 </a></div>
@@ -120,8 +138,16 @@
                       </svg>
                     </div>
                   </div>
-                  <img alt="i18n.courses.learn_pwa.title branding" src="/images/courses/pwa/card.svg" importance="high">
-                  <div class="flow card__content"><p class="text-size-0">A course that breaks down every aspect of
+                  <div style="text-align:center">
+                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
+                               [series]="chartOptions.series"
+                               [chart]="chartOptions.chart"
+                               [xaxis]="chartOptions.xaxis"
+                               [fill]="chartOptions.fill"
+                               [stroke]="chartOptions.stroke"
+                               [markers]="chartOptions.markers"
+                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+                  </div>                  <div class="flow card__content"><p class="text-size-0">A course that breaks down every aspect of
                     modern progressive web app development.</p></div>
                 </a></div>
                 <div><a href="/learn/css/" class="card" data-style="branded"><h3 class="visually-hidden">
@@ -138,8 +164,16 @@
                       </svg>
                     </div>
                   </div>
-                  <img alt="i18n.courses.learn_css.title branding" src="/images/courses/css/card.svg" importance="high">
-                  <div class="flow card__content"><p class="text-size-0">Let’s gleefully breakdown complex aspects of
+                  <div style="text-align:center">
+                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
+                               [series]="chartOptions.series"
+                               [chart]="chartOptions.chart"
+                               [xaxis]="chartOptions.xaxis"
+                               [fill]="chartOptions.fill"
+                               [stroke]="chartOptions.stroke"
+                               [markers]="chartOptions.markers"
+                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+                  </div>                  <div class="flow card__content"><p class="text-size-0">Let’s gleefully breakdown complex aspects of
                     CSS into digestible episodes covering everything from accessibility to z-index.</p></div>
                 </a></div>
               </div>

@@ -19,7 +19,7 @@ export class AuthService {
   //   username: this.getUserName()
   // }
 
-  constructor(private httpClient: HttpClient, private localStorage: LocalStorageService) {
+  constructor(private httpClient: HttpClient) {
   }
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {

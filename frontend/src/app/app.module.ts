@@ -9,11 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { FooterComponent } from './footer/footer.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
+import {HttpClientModule} from "@angular/common/http";
+import {NgxWebstorageModule} from "ngx-webstorage";
+import {ToastrModule} from "ngx-toastr";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -33,6 +37,11 @@ import {MatIconModule} from "@angular/material/icon";
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NgxWebstorageModule.forRoot(),
+    ToastrModule.forRoot(),
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

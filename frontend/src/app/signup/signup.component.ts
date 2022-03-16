@@ -4,6 +4,7 @@ import {SignupRequestPayload} from "./model/SignupRequestPayload";
 import {Router} from "@angular/router";
 import {AuthService} from "../shared/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-signup',
@@ -25,7 +26,7 @@ export class SignupComponent implements OnInit {
   //     password: ''
   //   };
   // }
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.signupRequestPayload = {
       email: '',
       password: '',
@@ -37,34 +38,45 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      acceptPolicy: new FormControl('', Validators.requiredTrue)
     })
   }
 
-  confirmPassword() {
-    // return this.signupForm.value['password'].valid;
-    return (this.signupForm.value['password'] === this.signupForm.value['confirmPassword']) && this.signupForm.value['password'].touched && this.signupForm.value['confirmPassword'].touched
-  }
 
-  signup(signupForm: any) {
+  signup() {
     console.log("BAAA")
-    this.signupRequestPayload.email = signupForm.email;
-    this.signupRequestPayload.password = signupForm.password;
+    this.signupRequestPayload.email = this.signupForm.get('email')?.value;
+    this.signupRequestPayload.password = this.signupForm.get('password')?.value;
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.signupForm.invalid) {
-      this.signupForm.getvalid
-      console.log("adsfa")
+    // this.authService.signup(this.signupRequestPayload)
+    //   .subscribe(data => {
+    //     this.router.navigate(['/login'],
+    //       {queryParams: {registered: 'true'}});
+    //   }, error => {
+    //     console.log(error);
+    //     this.toastr.error('Registration Failed! Please try again');
+    //   });
 
-      return;
+
+    // this.authService.signup(this.signupRequestPayload).subscribe(
+    //   result => {
+    //     this.toastr.success('Successfully updated');
+    //   }, error => {
+    //     this.toastr.error(error.error.message);
+    //   }
+    //   //     result?:
+    // )
+
+    this.authService.signup(this.signupRequestPayload).subscribe({
+      complete: () => { console.log("completeHandler"), this.toastr.success('Successfully updated')}, // completeHandler
+      error: error => {
+        console.log(error);
+        this.toastr.error('Registration Failed! Please try again');
+      },    // errorHandler
+      next: () => this.router.navigate(['/login'], { queryParams: { registered: 'true' }})  // nextHandler
+      });
     }
-
-    this.success = JSON.stringify(this.signupForm.value);
-
-    console.log(this.signupRequestPayload)
-
-  }
-
 
 }

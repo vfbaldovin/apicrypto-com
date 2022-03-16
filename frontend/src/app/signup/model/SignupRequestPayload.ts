@@ -3,3 +3,4 @@ export interface SignupRequestPayload {
   password: string;
   confirmPassword: string;
 }
+
