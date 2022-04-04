@@ -20,15 +20,15 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> signup(@RequestBody RegisterRequest registerRequest) {
-        AuthResponse authResponse = authService.signup(registerRequest);
+    public ResponseEntity<ApiResponse> signup(@RequestBody RegisterRequest registerRequest) {
+        ApiResponse authResponse = authService.signup(registerRequest);
         return new ResponseEntity<>(authResponse, OK);
     }
 
-    @GetMapping("accountVerification/{token}")
-    public ResponseEntity<String> verifyAccount(@PathVariable String token) {
-        authService.verifyAccount(token);
-        return new ResponseEntity<>("Account Activated Successfully", OK);
+    @PostMapping("/accountVerification")
+    public ResponseEntity<ApiResponse> verifyAccount(@RequestBody String token) {
+        ApiResponse apiResponse = authService.verifyAccount(token);
+        return new ResponseEntity<>(apiResponse, OK);
     }
 
     @PostMapping("/login")

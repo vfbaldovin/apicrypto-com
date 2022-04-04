@@ -1,7 +1,7 @@
 package com.web.apicrypto.service;
 
 import com.web.apicrypto.exceptions.ApiCryptoException;
-import com.web.apicrypto.model.MailCredentials;
+import com.web.apicrypto.model.constants.MailCredentials;
 import com.web.apicrypto.model.NotificationEmail;
 import com.web.apicrypto.model.dto.MailRequest;
 import lombok.AllArgsConstructor;
@@ -38,23 +38,5 @@ class MailService {
         }
     }
 
-
-    @Async
-    public void sendMailFromForm(MailRequest mailRequest) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom(MailCredentials.EMAIL_ADDRESS);
-            messageHelper.setTo(MailCredentials.EMAIL_ADDRESS);
-            messageHelper.setSubject(mailRequest.getSubject() + " - from - " + mailRequest.getEmail());
-            messageHelper.setText(mailRequest.getName() + "  -  " +mailRequest.getMessage());
-        };
-        try {
-            mailSender.send(messagePreparator);
-            log.info("Mail from website sent!");
-        } catch (MailException e) {
-            log.error("Exception occurred when sending mail", e);
-            e.printStackTrace();
-        }
-    }
 
 }

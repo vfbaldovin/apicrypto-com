@@ -1,14 +1,14 @@
 package com.web.apicrypto.service;
 
-import com.web.apicrypto.error.ErrorConstants;
+import com.web.apicrypto.exceptions.error.ErrorConstants;
 import com.web.apicrypto.exceptions.ApiCryptoException;
 import com.web.apicrypto.model.NotificationEmail;
 import com.web.apicrypto.model.User;
 import com.web.apicrypto.model.VerificationToken;
+import com.web.apicrypto.model.constants.AppConstants;
 import com.web.apicrypto.model.dto.*;
 import com.web.apicrypto.repository.UserRepository;
 import com.web.apicrypto.repository.VerificationTokenRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +27,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.web.apicrypto.model.constants.AppConstants.URL;
+
 @Service
 //@AllArgsConstructor
 @Transactional
@@ -39,8 +41,8 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
-    @Value("${application.url}")
-    private String URL;
+//    @Value("${application.url}")
+//    private String URL;
 
     public AuthService(PasswordEncoder passwordEncoder, UserRepository userRepository, VerificationTokenRepository verificationTokenRepository, MailService mailService, AuthenticationManager authenticationManager, JwtProvider jwtProvider, RefreshTokenService refreshTokenService) {
         this.passwordEncoder = passwordEncoder;
@@ -52,16 +54,16 @@ public class AuthService {
         this.refreshTokenService = refreshTokenService;
     }
 
-    public AuthResponse signup(RegisterRequest registerRequest) {
+    public ApiResponse signup(RegisterRequest registerRequest) {
         Optional<User> userOptional = userRepository.findByUsername(registerRequest.getUsername());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (!user.isEnabled()) {
                 resendMailActivation(user);
-                return AuthResponse.build(ErrorConstants.RESEND_ACTIVATION_MAIL);
+                throw new ApiCryptoException(ErrorConstants.RESEND_ACTIVATION_MAIL.getMessage());
             }
-            return AuthResponse.build(ErrorConstants.EMAIL_TAKEN);
+            throw new ApiCryptoException(ErrorConstants.EMAIL_TAKEN.getMessage());
         }
 
         User user = new User();
@@ -74,14 +76,14 @@ public class AuthService {
 
         String token = generateVerificationToken(user);
 
-        //TODO: change to send Email
-//        mailService.sendMail(new NotificationEmail("Please Activate your Account",
-//                user.getEmail(), "Thank you for signing up to Spring Reddit, " +
-//                "please click on the below url to activate your account : " +
-//                "http://localhost:8080/api/auth/accountVerification/" + token));
+        mailService.sendMail(new NotificationEmail("Welcome to apicrypto.com!", user.getUsername(),
+                "<html><body><div>Hello,</div><br><div>Congratulations! You have taken your first step towards your " +
+                        "project and we are excited to share with you relevant cryptocurrencies data feeds.\n</div><br>" +
+                        "<div>Access the following link to activate your account:</div>" + "<br><div><a href = \"" + URL + "accountVerification/"+token+"\">" + URL +"accountVerification</a></div>" + "<br><div>If something is not clear, let us know how we can help you.</div><br><div>Best Regards,</div><a href=\""+ URL +"\">Api Crypto Team</a></body></html>"));
+
         System.out.println("Activation link = " + (URL + "/api/auth/accountVerification/" + token));
 
-        return AuthResponse.build(ErrorConstants.SUCCESS);
+        return ApiResponse.build(ErrorConstants.SUCCESS);
     }
 
     @Transactional(readOnly = true)
@@ -89,14 +91,16 @@ public class AuthService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(ErrorConstants.EMAIL_NOT_FOUND.getMessage(), principal.getUsername())));
     }
 
-    private void fetchUserAndEnable(VerificationToken verificationToken) {
+    private ApiResponse fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ApiCryptoException("User not found with name - " + username));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ApiCryptoException(String.format(ErrorConstants.EMAIL_NOT_FOUND.getMessage(), username)));
         user.setEnabled(true);
         userRepository.save(user);
+
+        return ApiResponse.build(ErrorConstants.SUCCESS);
     }
 
     public void resendMailActivation(User user) {
@@ -104,11 +108,11 @@ public class AuthService {
         //TODO: change to send Email to current user
         System.out.println("Activation link = " + (URL + "/api/auth/accountVerification/" + token));
 
-//        mailService.sendMail(new NotificationEmail("Welcome to apicrypto.com!",
-//                user.getUsername(), "<html><body><div>Hello,</div><br><div>Congratulations! You have taken your first step towards your project and we are excited to share with you relevant cryptocurrencies data feeds.\n</div><br>" +
-//                "<div>Access the following link to activate your account:</div>" +
-//                "<br><div><a href = \"" + URL + "accountVerification/"+token+"\">" + URL +"accountVerification</a></div>" +
-//                "<br><div>If something is not clear, let us know how we can help you.</div><br><div>Best Regards,</div><a href=\""+ URL +"\">Api Crypto Team</a></body></html>"));
+        mailService.sendMail(new NotificationEmail("Welcome to apicrypto.com!",
+                user.getUsername(), "<html><body><div>Hello,</div><br><div>Congratulations! You have taken your first step towards your project and we are excited to share with you relevant cryptocurrencies data feeds.\n</div><br>" +
+                "<div>Access the following link to activate your account:</div>" +
+                "<br><div><a href = \"" + URL + "accountVerification/"+token+"\">" + URL +"accountVerification</a></div>" +
+                "<br><div>If something is not clear, let us know how we can help you.</div><br><div>Best Regards,</div><a href=\""+ URL +"\">Api Crypto Team</a></body></html>"));
     }
 
     private String generateVerificationToken(User user) {
@@ -122,9 +126,10 @@ public class AuthService {
         return token;
     }
 
-    public void verifyAccount(String token) {
-        Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
-        fetchUserAndEnable(verificationToken.orElseThrow(() -> new ApiCryptoException("Invalid Token")));
+    public ApiResponse verifyAccount(String token) {
+        Optional<VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
+        VerificationToken verificationToken = verificationTokenOptional.orElseThrow(() -> new ApiCryptoException("Invalid Token"));
+        return fetchUserAndEnable(verificationToken);
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {

@@ -1,6 +1,8 @@
 package com.web.apicrypto.exceptions;
 
+
 public class ApiCryptoException extends RuntimeException{
+
     public ApiCryptoException(String message) {
         super(message);
     }
