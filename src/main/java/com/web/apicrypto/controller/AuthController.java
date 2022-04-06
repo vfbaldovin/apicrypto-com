@@ -46,4 +46,10 @@ public class AuthController {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
         return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
     }
+
+    @PostMapping("/reset")
+    public ResponseEntity<ApiResponse> resetPassword(@RequestBody String email) {
+        ApiResponse apiResponse = authService.resetPassword(email);
+        return new ResponseEntity<>(apiResponse, OK);
+    }
 }

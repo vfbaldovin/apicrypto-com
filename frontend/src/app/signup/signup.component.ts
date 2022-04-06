@@ -26,12 +26,11 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
       acceptPolicy: new FormControl('', Validators.requiredTrue)
     })
   }
-
 
   signup() {
     this.signupRequestPayload.email = this.signupForm.get('email')?.value;
@@ -40,7 +39,7 @@ export class SignupComponent implements OnInit {
     this.authService.signup(this.signupRequestPayload).subscribe({
       complete: () => {this.toastr.success('An activation email has been sent. Please check your inbox and also the spam folder.')},
       error: (response) => {this.errorMessage = response.error},
-      next: () => this.router.navigate(['/login'])  // nextHandler
+      next: () => this.router.navigate(['/login'])
       });
     }
 

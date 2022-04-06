@@ -17,8 +17,6 @@ export class TokenVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("this.token");
-    console.log(this.token);
     this.postService.verifyUser(this.token).subscribe({
       complete: () => {this.toastr.success('Account successfully activated.')},
       error: () => {this.toastr.error('The token is invalid.'); this.router.navigate(['/login'])},

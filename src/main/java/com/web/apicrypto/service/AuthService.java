@@ -1,18 +1,14 @@
 package com.web.apicrypto.service;
 
-import com.web.apicrypto.exceptions.error.ErrorConstants;
+import com.web.apicrypto.exceptions.error.ApiHttpStatus;
 import com.web.apicrypto.exceptions.ApiCryptoException;
 import com.web.apicrypto.model.NotificationEmail;
 import com.web.apicrypto.model.User;
 import com.web.apicrypto.model.VerificationToken;
-import com.web.apicrypto.model.constants.AppConstants;
 import com.web.apicrypto.model.dto.*;
 import com.web.apicrypto.repository.UserRepository;
 import com.web.apicrypto.repository.VerificationTokenRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -61,9 +57,9 @@ public class AuthService {
             User user = userOptional.get();
             if (!user.isEnabled()) {
                 resendMailActivation(user);
-                throw new ApiCryptoException(ErrorConstants.RESEND_ACTIVATION_MAIL.getMessage());
+                throw new ApiCryptoException(ApiHttpStatus.RESEND_ACTIVATION_MAIL.getMessage());
             }
-            throw new ApiCryptoException(ErrorConstants.EMAIL_TAKEN.getMessage());
+            throw new ApiCryptoException(ApiHttpStatus.EMAIL_TAKEN.getMessage());
         }
 
         User user = new User();
@@ -83,7 +79,7 @@ public class AuthService {
 
         System.out.println("Activation link = " + (URL + "/api/auth/accountVerification/" + token));
 
-        return ApiResponse.build(ErrorConstants.SUCCESS);
+        return ApiResponse.build(ApiHttpStatus.SUCCESS);
     }
 
     @Transactional(readOnly = true)
@@ -91,16 +87,16 @@ public class AuthService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(ErrorConstants.EMAIL_NOT_FOUND.getMessage(), principal.getUsername())));
+                .orElseThrow(() -> new UsernameNotFoundException(ApiHttpStatus.EMAIL_NOT_FOUND.getMessage()));
     }
 
     private ApiResponse fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ApiCryptoException(String.format(ErrorConstants.EMAIL_NOT_FOUND.getMessage(), username)));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.EMAIL_NOT_FOUND.getMessage()));
         user.setEnabled(true);
         userRepository.save(user);
 
-        return ApiResponse.build(ErrorConstants.SUCCESS);
+        return ApiResponse.build(ApiHttpStatus.SUCCESS);
     }
 
     public void resendMailActivation(User user) {
@@ -133,15 +129,23 @@ public class AuthService {
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                loginRequest.getPassword()));
+        Authentication authenticate;
+        try {
+             authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+                    loginRequest.getPassword()));
+        } catch (BadCredentialsException e) {
+            throw new ApiCryptoException(ApiHttpStatus.LOGIN_FAILED.getMessage());
+        } catch (DisabledException e) {
+            throw new ApiCryptoException(ApiHttpStatus.USER_NOT_ENABLED.getMessage());
+        }
+
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenService.generateRefreshToken().getToken())
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-                .username(loginRequest.getUsername())
+                .username(loginRequest.getEmail())
                 .build();
     }
 
@@ -160,4 +164,21 @@ public class AuthService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
+
+    public ApiResponse resetPassword(String email) {
+        User user = userRepository.findByUsername(email).orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.EMAIL_NOT_FOUND.getMessage()));
+        if (!user.isEnabled()) {
+            throw new ApiCryptoException(ApiHttpStatus.USER_NOT_ENABLED.getMessage());
+        }
+
+        String token = generateVerificationToken(user);
+
+        mailService.sendMail(new NotificationEmail("Recover password",
+                user.getUsername(), "<html><body><div>Hello,</div><br><div>Thank you for using apicrypto.com!\n</div><br>" +
+                "<div>Please access the following link to reset your password:</div>" +
+                "<br><div><a href = \"" + URL + "reset/"+token+"\">" + URL +"reset</a></div>" +
+                "<br><div>If something is not clear, let us know how we can help you.</div><br><div>Best Regards,</div><a href=\""+ URL +"\">Api Crypto Team</a></body></html>"));
+        return ApiResponse.build(ApiHttpStatus.SUCCESS);
+    }
+
 }
