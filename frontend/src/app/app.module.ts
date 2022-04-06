@@ -19,6 +19,7 @@ import {NgxWebstorageModule} from "ngx-webstorage";
 import {ToastrModule} from "ngx-toastr";
 import {NgApexchartsModule} from "ng-apexcharts";
 import { TokenVerificationComponent } from './token-verification/token-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TokenVerificationComponent } from './token-verification/token-verificat
     SignupComponent,
     FooterComponent,
     RecoverPasswordComponent,
-    TokenVerificationComponent
+    TokenVerificationComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

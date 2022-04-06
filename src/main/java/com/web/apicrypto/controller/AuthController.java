@@ -52,4 +52,10 @@ public class AuthController {
         ApiResponse apiResponse = authService.resetPassword(email);
         return new ResponseEntity<>(apiResponse, OK);
     }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<ApiResponse> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        ApiResponse apiResponse = authService.changePassword(changePasswordDto);
+        return new ResponseEntity<>(apiResponse, OK);
+    }
 }

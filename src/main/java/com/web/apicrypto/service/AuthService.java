@@ -124,17 +124,18 @@ public class AuthService {
 
     public ApiResponse verifyAccount(String token) {
         Optional<VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
-        VerificationToken verificationToken = verificationTokenOptional.orElseThrow(() -> new ApiCryptoException("Invalid Token"));
+        VerificationToken verificationToken = verificationTokenOptional.orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.INVALID_TOKEN.getMessage()));
         return fetchUserAndEnable(verificationToken);
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
         Authentication authenticate;
+        userRepository.findByUsername(loginRequest.getEmail()).orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.EMAIL_NOT_FOUND.getMessage()));
         try {
              authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
                     loginRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new ApiCryptoException(ApiHttpStatus.LOGIN_FAILED.getMessage());
+            throw new ApiCryptoException(ApiHttpStatus.INVALID_PASSWORD.getMessage());
         } catch (DisabledException e) {
             throw new ApiCryptoException(ApiHttpStatus.USER_NOT_ENABLED.getMessage());
         }
@@ -181,4 +182,13 @@ public class AuthService {
         return ApiResponse.build(ApiHttpStatus.SUCCESS);
     }
 
+    public ApiResponse changePassword(ChangePasswordDto changePasswordDto) {
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(changePasswordDto.getToken())
+                .orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.INVALID_TOKEN.getMessage()));
+        String username = verificationToken.getUser().getUsername();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ApiCryptoException(ApiHttpStatus.EMAIL_NOT_FOUND.getMessage()));
+        user.setPassword(passwordEncoder.encode(changePasswordDto.getPassword()));
+        userRepository.save(user);
+        return ApiResponse.build(ApiHttpStatus.SUCCESS);
+    }
 }
