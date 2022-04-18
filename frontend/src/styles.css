@@ -2379,7 +2379,8 @@ figure > .fixed-width-img[width], figure > [width].w-screenshot {
 
 .site-header__brand {
   display: block;
-  width: 140px
+  width: 140px;
+  height: 52px;
 }
 
 .site-header__brand:hover {
@@ -2439,7 +2440,7 @@ figure > .fixed-width-img[width], figure > [width].w-screenshot {
   inset: 1.25rem clamp(1.375rem, 1.2rem + 0.89vw, 2rem) auto auto
 }
 
-.site-header .web-navigation-drawer:not([open]) [data-drawer-close-button] {
+.site-header .web-navigation-drawer:not(.open) [data-drawer-close-button] {
   display: none
 }
 
@@ -2467,7 +2468,7 @@ figure > .fixed-width-img[width], figure > [width].w-screenshot {
     display: inline-block
   }
 
-  .site-header .web-navigation-drawer[animating] [data-drawer-container] {
+  .site-header .web-navigation-drawer, .animating [data-drawer-container] {
     transition: none
   }
 
@@ -3063,7 +3064,7 @@ web-copy-code .web-copy-code__button::before {
   box-shadow: 2px 0 12px rgba(0, 0, 0, .4);
   position: relative;
   transform: translateX(-110%);
-  width: var(--web-navigation-drawer-width);
+  width: var(--web-navigation-drawer-width, fit-content);
   background: var(--color-core-bg)
 }
 
@@ -3080,24 +3081,24 @@ web-copy-code .web-copy-code__button::before {
   opacity: 0
 }
 
-.web-navigation-drawer[open] {
+.open {
   pointer-events: auto;
   visibility: visible
 }
 
-.web-navigation-drawer[open]::before {
+.open::before {
   opacity: 1
 }
 
-.web-navigation-drawer[open] [data-drawer-container] {
+ .open [data-drawer-container] {
   transform: none
 }
 
-.web-navigation-drawer[animating] [data-drawer-container] {
+ .animating [data-drawer-container] {
   transition: transform 200ms linear
 }
 
-.web-navigation-drawer[open][animating] [data-drawer-container] {
+ .open, .animating [data-drawer-container] {
   transition: transform 200ms linear
 }
 
@@ -5621,3 +5622,19 @@ mat-form-field {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*:host ::ng-deep .p-menubar-end {*/
+
+/*  margin-left: unset;*/
+/*}*/
+
+/*:host ::ng-deep .p-menubar-end {*/
+
+/*  margin-left: unset;*/
+/*}*/
+
+/*.p-menubar .p-menubar-custom, .p-menubar .p-menubar-end {*/
+/*  margin-left: unset;*/
+
+/*}*/

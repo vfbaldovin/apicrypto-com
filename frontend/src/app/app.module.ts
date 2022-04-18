@@ -12,7 +12,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import {NgxWebstorageModule} from "ngx-webstorage";
@@ -20,6 +20,13 @@ import {ToastrModule} from "ngx-toastr";
 import {NgApexchartsModule} from "ng-apexcharts";
 import { TokenVerificationComponent } from './token-verification/token-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {MenubarModule} from "primeng/menubar";
+import {SharedModule} from "primeng/api";
+import {InputTextModule} from "primeng/inputtext";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatButtonModule} from "@angular/material/button";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     BrowserAnimationsModule,
     NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot(),
-    NgApexchartsModule
+    NgApexchartsModule,
+    MenubarModule,
+    SharedModule,
+    InputTextModule,
+    FormsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

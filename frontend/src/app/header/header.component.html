@@ -1,14 +1,14 @@
-<header class="site-header" role="banner">
-  <div class="cluster gutter-base">
-    <button class="icon-button color-core-text md:hidden-yes tooltip" data-alignment=right data-open-drawer-button>
+<div class="site-header">
+    <div class="cluster gutter-base">
+    <button (click)="toggleNav()" class="icon-button color-core-text md:hidden-yes tooltip" data-alignment=right data-open-drawer-button>
       <svg height=24 viewBox="0 0 24 24" width=24 xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0h24v24H0z" fill="none"/>
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
       </svg>
-      <span class="tooltip__content">Open menu</span></button>
+      <span class="tooltip__content">Open menu</span>
+    </button>
     <a class="brand site-header__brand" href="">
     <svg xmlns="http://www.w3.org/2000/svg" width="462.000000pt" height="55" viewBox="0 0 462.000000 92.000000" preserveAspectRatio="xMidYMid meet">
-
       <g transform="translate(0.000000,92.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
         <path d="M1816 874 c-30 -30 -9 -84 33 -84 21 0 51 30 51 52 0 19 -32 48 -53 48 -8 0 -23 -7 -31 -16z"></path>
         <path d="M3820 775 l0 -65 -36 0 c-34 0 -35 -1 -32 -32 3 -29 7 -33 35 -36 l31 -3 4 -175 3 -176 33 -29 c26 -24 41 -29 82 -29 49 0 50 1 50 30 0 25 -4 30 -25 30 -14 0 -34 9 -45 20 -18 18 -20 33 -20 174 l0 155 43 3 c39 3 42 5 45 36 3 32 3 32 -42 32 l-46 0 0 65 0 65 -40 0 -40 0 0 -65z"></path>
@@ -26,14 +26,14 @@
     </a>
   </div>
 
-  <div class="web-navigation-drawer" type="standard">
-    <nav aria-label="main navigation" class="site-header__nav" data-drawer-container>
+  <div [ngClass]="headerClass"  type="standard" (click)="toggleSideNav()">
+    <nav (click)="toggleSideNav()" aria-label="main navigation" class="site-header__nav" data-drawer-container>
       <a data-category="Site-Wide Custom Events" data-label="Tab: Learn" href="/learn/" class="site-header__link">Learn </a>
       <a data-category="Site-Wide Custom Events" data-label="Tab: Measure" href="/learn/"  class="site-header__link">Measure </a>
       <a data-category="Site-Wide Custom Events" data-label="Tab: Blog" href="/blog/" class="site-header__link">Blog </a>
       <a data-category="Site-Wide Custom Events" data-label="Tab: Case Studies" href="/tags/case-study/" class="site-header__link">Case studies </a>
       <a data-category="Site-Wide Custom Events" data-label="Tab: About" href="/about/" class="site-header__link">About </a>
-      <button class="icon-button color-core-text md:hidden-yes tooltip" data-drawer-close-button>
+      <button (click)="toggleNav()" class="icon-button color-core-text md:hidden-yes tooltip" data-drawer-close-button>
         <svg aria-label=close class="icon" height=24 role=img viewBox="0 0 24 24" width=24 xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -47,4 +47,4 @@
       <a routerLink="/login" class="fab" data-type="secondary">Sign In</a>
     </div>
   </div>
-</header>
+</div>
