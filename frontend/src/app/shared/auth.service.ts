@@ -6,6 +6,7 @@ import {LoginResponse} from "../login/model/login-response.payload";
 import {LocalStorageService} from "ngx-webstorage";
 import {LoginRequestPayload} from "../login/model/login-request.payload";
 import {AppConstants} from "./constants/AppConstants";
+import {RecoverPasswordRequest} from "../reset-password/model/recover-password-request.payload";
 
 
 @Injectable({
@@ -61,6 +62,14 @@ export class AuthService {
           response.authenticationToken);
         this.localStorage.store('expiresAt', response.expiresAt);
       }));
+  }
+
+  verifyUser(token: string): Observable<any> {
+    return this.httpClient.post(AppConstants.API_ENDPOINT + '/auth/accountVerification', token);
+  }
+
+  changePassword(recoverPasswordRequest: RecoverPasswordRequest): Observable<any> {
+    return this.httpClient.post(AppConstants.API_ENDPOINT + '/auth/changePassword', recoverPasswordRequest);
   }
 
   logout() {

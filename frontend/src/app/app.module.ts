@@ -27,6 +27,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -40,28 +41,29 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     TokenVerificationComponent,
     ResetPasswordComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NoopAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NgxWebstorageModule.forRoot(),
-    ToastrModule.forRoot(),
-    NgApexchartsModule,
-    MenubarModule,
-    SharedModule,
-    InputTextModule,
-    FormsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    FlexLayoutModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NgxWebstorageModule.forRoot(),
+        ToastrModule.forRoot(),
+        NgApexchartsModule,
+        MenubarModule,
+        SharedModule,
+        InputTextModule,
+        FormsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatButtonToggleModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,35 +1,34 @@
 <main id=main>
   <div class=homepage>
 
-    <header class="hero">
-      <div class="wrapper">
-        <div class="switcher hero__columns">
-          <div><span class="hero__eyebrow" aria-hidden="true">About web.dev</span>
-            <div class="flow hero__content">
-              <img alt="" src="https://web-dev.imgix.net/image/jxu1OdD7LKOGIDU7jURMpSH2lyK2/zrBPJq27O4Hs8haszVnK.svg"
-                   height="240" width="333" class="hero__decor" aria-hidden="true"
-                   importance="high">
-              <h1 class="hero__title">Let's build the future of the web, together</h1>
-              <p>Take advantage of the latest modern technologies to build amazing web experiences for everyone.</p><a
-              href="/about/" class="button" data-type="primary">Learn more</a></div>
-          </div>
-          <div class="flow">
-            <a href="https://designcember.com" class="feature-card" data-treatment="illustration"
-               data-theme="dark">
-              <img alt="" src="/assets/img/apicrypto-page.png" class="feature-card__background" aria-hidden="true" importance="high">
-            </a>
-            <a href="/mainline-mensware/" class="feature-card" data-treatment="bg-image"><span
-              class="feature-card__eyebrow">Case study</span>
-              <h3 class="feature-card__title">Mainline Menswear implements PWA and sees a 55% conversion rate uplift</h3>
-              <img alt="" src="/assets/img/charts.png"
-                   height="330" width="570" class="feature-card__background" loading="lazy" decoding="async"
-                   sizes="(min-width: 570px) 570px, calc(100vw - 48px)"></a>
-            <!--             TODO:    srcset="https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=200 200w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=228 228w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=260 260w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=296 296w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=338 338w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=385 385w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=439 439w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=500 500w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=571 571w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=650 650w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=741 741w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=845 845w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=964 964w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=1098 1098w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=1140 1140w"-->
-
-          </div>
-        </div>
+    <div class="chart-box">
+      <div id="chart-candlestick" *ngIf="chartCandleOptions">
+        <mat-button-toggle-group name="timeFrame" aria-label="Time frame">
+          <mat-button-toggle value="1M">1M</mat-button-toggle>
+          <mat-button-toggle value="6M">6M</mat-button-toggle>
+          <mat-button-toggle value="1Y">1Y</mat-button-toggle>
+        </mat-button-toggle-group>
+        <apx-chart #ohlcvChart
+                   [title]="chartCandleOptions.title"
+                   [series]="chartCandleOptions.series"
+                   [chart]="chartCandleOptions.chart"
+                   [tooltip]="chartCandleOptions.tooltip"
+                   [xaxis]="chartCandleOptions.xaxis"
+                   [plotOptions]="chartCandleOptions.plotOptions" ></apx-chart>
       </div>
-    </header>
+<!--      <div id="chart-bar">-->
+<!--        <apx-chart *ngIf="chartBarOptions.series && chartBarOptions.dataLabels &&  chartBarOptions.xaxis && chartBarOptions.chart &&  chartBarOptions.yaxis && chartBarOptions.stroke && chartBarOptions.plotOptions"-->
+<!--                   #chartBar-->
+<!--                   [series]="chartBarOptions.series"-->
+<!--                   [chart]="chartBarOptions.chart"-->
+<!--                   [xaxis]="chartBarOptions.xaxis"-->
+<!--                   [yaxis]="chartBarOptions.yaxis"-->
+<!--                   [dataLabels]="chartBarOptions.dataLabels"-->
+<!--                   [stroke]="chartBarOptions.stroke"-->
+<!--                   [plotOptions]="chartBarOptions.plotOptions"-->
+<!--        ></apx-chart>-->
+<!--      </div>-->
+    </div>
 
     <article class="bg-core-bg hero homepage__page-speed-hero">
       <div class=wrapper>
@@ -85,14 +84,6 @@
 <!--                  <img alt="i18n.courses.learn_design.title branding" src="/images/courses/design/card.svg"-->
 <!--                       importance="high">-->
                   <div style="text-align:center">
-                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
-                               [series]="chartOptions.series"
-                               [chart]="chartOptions.chart"
-                               [xaxis]="chartOptions.xaxis"
-                               [fill]="chartOptions.fill"
-                               [stroke]="chartOptions.stroke"
-                               [markers]="chartOptions.markers"
-                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
                   </div>
                   <div class="flow card__content"><p class="text-size-0">Let's explore all aspects of responsive design,
                     learning how to make sites that look great and work well for everyone.</p></div>
@@ -112,14 +103,14 @@
                     </div>
                   </div>
                   <div style="text-align:center">
-                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
-                               [series]="chartOptions.series"
-                               [chart]="chartOptions.chart"
-                               [xaxis]="chartOptions.xaxis"
-                               [fill]="chartOptions.fill"
-                               [stroke]="chartOptions.stroke"
-                               [markers]="chartOptions.markers"
-                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+<!--                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"-->
+<!--                               [series]="chartOptions.series"-->
+<!--                               [chart]="chartOptions.chart"-->
+<!--                               [xaxis]="chartOptions.xaxis"-->
+<!--                               [fill]="chartOptions.fill"-->
+<!--                               [stroke]="chartOptions.stroke"-->
+<!--                               [markers]="chartOptions.markers"-->
+<!--                               [dataLabels]="chartOptions.dataLabels"></apx-chart>-->
                   </div>
                   <div class="flow card__content"><p class="text-size-0">A course about HTML forms to help you improve
                     your web developer expertise.</p></div>
@@ -139,14 +130,14 @@
                     </div>
                   </div>
                   <div style="text-align:center">
-                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
-                               [series]="chartOptions.series"
-                               [chart]="chartOptions.chart"
-                               [xaxis]="chartOptions.xaxis"
-                               [fill]="chartOptions.fill"
-                               [stroke]="chartOptions.stroke"
-                               [markers]="chartOptions.markers"
-                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+<!--                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"-->
+<!--                               [series]="chartOptions.series"-->
+<!--                               [chart]="chartOptions.chart"-->
+<!--                               [xaxis]="chartOptions.xaxis"-->
+<!--                               [fill]="chartOptions.fill"-->
+<!--                               [stroke]="chartOptions.stroke"-->
+<!--                               [markers]="chartOptions.markers"-->
+<!--                               [dataLabels]="chartOptions.dataLabels"></apx-chart>-->
                   </div>                  <div class="flow card__content"><p class="text-size-0">A course that breaks down every aspect of
                     modern progressive web app development.</p></div>
                 </a></div>
@@ -165,14 +156,14 @@
                     </div>
                   </div>
                   <div style="text-align:center">
-                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"
-                               [series]="chartOptions.series"
-                               [chart]="chartOptions.chart"
-                               [xaxis]="chartOptions.xaxis"
-                               [fill]="chartOptions.fill"
-                               [stroke]="chartOptions.stroke"
-                               [markers]="chartOptions.markers"
-                               [dataLabels]="chartOptions.dataLabels"></apx-chart>
+<!--                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"-->
+<!--                               [series]="chartOptions.series"-->
+<!--                               [chart]="chartOptions.chart"-->
+<!--                               [xaxis]="chartOptions.xaxis"-->
+<!--                               [fill]="chartOptions.fill"-->
+<!--                               [stroke]="chartOptions.stroke"-->
+<!--                               [markers]="chartOptions.markers"-->
+<!--                               [dataLabels]="chartOptions.dataLabels"></apx-chart>-->
                   </div>                  <div class="flow card__content"><p class="text-size-0">Let’s gleefully breakdown complex aspects of
                     CSS into digestible episodes covering everything from accessibility to z-index.</p></div>
                 </a></div>

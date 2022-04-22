@@ -5638,3 +5638,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /*  margin-left: unset;*/
 
 /*}*/
+.apexcharts-toolbar-custom-icon{
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  line-height: 15px;
+  color: #6E8192;
+  text-align: center;
+}
