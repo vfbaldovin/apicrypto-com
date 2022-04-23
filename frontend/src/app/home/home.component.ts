@@ -10,13 +10,33 @@ import {ChartComponent, NgApexchartsModule} from "ng-apexcharts";
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('ohlcvChart') ohlcv : ChartComponent;
+  @ViewChild('ohlcvChart') ohlcvChart : ChartComponent;
 
   public chartCandleOptions!: any;
 
   constructor(private chartService: ChartService) {
-    this.ohlcv = new ChartComponent();
+    this.ohlcvChart = new ChartComponent();
   }
+
+  onValChange(value: any) {
+    let data = this.chartCandleOptions.series[0].data;
+    switch (value) {
+      case "1M": {
+        this.ohlcvChart.zoomX(data[data.length-30][0],  data[data.length-1][0]);
+        break;
+      }
+      case "6M": {
+        this.ohlcvChart.zoomX(data[Math.round(data.length-data.length/2)][0],  data[data.length-1][0]);
+        break;
+      }
+      case "1Y": {
+        this.ohlcvChart.zoomX(data[0][0],  data[data.length-1][0]);
+        break;
+      }
+    }
+  }
+
+
 
   ngOnInit(): void {
 
