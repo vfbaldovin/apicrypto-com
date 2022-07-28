@@ -6,6 +6,7 @@ import {SignupComponent} from "./signup/signup.component";
 import {RecoverPasswordComponent} from "./recover-password/recover-password.component";
 import {TokenVerificationComponent} from "./token-verification/token-verification.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'recover', component: RecoverPasswordComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'accountVerification/:token', component: TokenVerificationComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'reset/:token', component: ResetPasswordComponent }
 ];
 @NgModule({

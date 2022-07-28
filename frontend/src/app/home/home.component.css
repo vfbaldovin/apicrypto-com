@@ -20,3 +20,7 @@
 .mat-button-toggle-button{
   padding: 2px;
 }
+
+.ticker {
+  width: -webkit-fill-available;
+}

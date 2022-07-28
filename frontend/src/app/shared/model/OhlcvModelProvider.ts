@@ -17,9 +17,8 @@ export class OhlcvModelProvider {
       },
       chart: {
         type: "candlestick",
-        height: 500,
-        id: "candles",
-
+        height: 400,
+        width: 500,
         toolbar: {
           show: true,
           offsetX: 0,

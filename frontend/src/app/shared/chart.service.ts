@@ -12,7 +12,10 @@ export class ChartService {
   constructor(private httpClient: HttpClient) { }
 
   getOhlcvChart(): Observable<any> {
-
     return this.httpClient.get<any>(AppConstants.OHLCV_ENDPOINT);
+  }
+
+  getTickerData(id: number): Observable<any> {
+    return this.httpClient.get<any>(AppConstants.TICKER_ENDPOINT + id);
   }
 }

@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe({
       next: () => {
         this.isError = false;
-        this.router.navigateByUrl('');
-        this.toastr.success('Login Successful')
+        this.router.navigateByUrl('dashboard');
+        this.toastr.success('Login Successful') //@todo add material snacbar
       },
       error: err => {
         this.isError = true;

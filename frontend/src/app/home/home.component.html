@@ -1,35 +1,34 @@
 <main id=main>
   <div class=homepage>
+    <header class="hero">
+      <div class="wrapper">
+        <div class="switcher hero__columns">
+          <div><span class="hero__eyebrow" aria-hidden="true">About web.dev</span>
+            <div class="flow hero__content">
+              <img alt="" src="https://web-dev.imgix.net/image/jxu1OdD7LKOGIDU7jURMpSH2lyK2/zrBPJq27O4Hs8haszVnK.svg"
+                   height="240" width="333" class="hero__decor" aria-hidden="true"
+                   importance="high">
+              <h1 class="hero__title">Let's build the future of the web, together</h1>
+              <p>Take advantage of the latest modern technologies to build amazing web experiences for everyone.</p><a
+              href="/about/" class="button" data-type="primary">Learn more</a></div>
+          </div>
+          <div class="flow">
+            <a href="https://designcember.com" class="feature-card" data-treatment="illustration"
+               data-theme="dark">
+              <img alt="" src="/assets/img/apicrypto-page.png" class="feature-card__background" aria-hidden="true" importance="high">
+            </a>
+            <a href="/mainline-mensware/" class="feature-card" data-treatment="bg-image"><span
+              class="feature-card__eyebrow">Case study</span>
+              <h3 class="feature-card__title">Mainline Menswear implements PWA and sees a 55% conversion rate uplift</h3>
+              <img alt="" src="/assets/img/charts.png"
+                   height="330" width="570" class="feature-card__background" loading="lazy" decoding="async"
+                   sizes="(min-width: 570px) 570px, calc(100vw - 48px)"></a>
+            <!--             TODO:    srcset="https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=200 200w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=228 228w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=260 260w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=296 296w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=338 338w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=385 385w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=439 439w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=500 500w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=571 571w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=650 650w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=741 741w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=845 845w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=964 964w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=1098 1098w, https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/Yz5G0leLpdHLidygym31.jpg?auto=format&amp;w=1140 1140w"-->
 
-    <div class="chart-box">
-      <div id="chart-candlestick" *ngIf="chartCandleOptions">
-        <mat-button-toggle-group (change)="onValChange($event.value)" name="timeFrame" aria-label="Time frame">
-          <mat-button-toggle value="1M">1M</mat-button-toggle>
-          <mat-button-toggle value="6M">6M</mat-button-toggle>
-          <mat-button-toggle value="1Y">1Y</mat-button-toggle>
-        </mat-button-toggle-group>
-        <apx-chart #ohlcvChart
-                   [title]="chartCandleOptions.title"
-                   [series]="chartCandleOptions.series"
-                   [chart]="chartCandleOptions.chart"
-                   [tooltip]="chartCandleOptions.tooltip"
-                   [xaxis]="chartCandleOptions.xaxis"
-                   [plotOptions]="chartCandleOptions.plotOptions" ></apx-chart>
+          </div>
+        </div>
       </div>
-<!--      <div id="chart-bar">-->
-<!--        <apx-chart *ngIf="chartBarOptions.series && chartBarOptions.dataLabels &&  chartBarOptions.xaxis && chartBarOptions.chart &&  chartBarOptions.yaxis && chartBarOptions.stroke && chartBarOptions.plotOptions"-->
-<!--                   #chartBar-->
-<!--                   [series]="chartBarOptions.series"-->
-<!--                   [chart]="chartBarOptions.chart"-->
-<!--                   [xaxis]="chartBarOptions.xaxis"-->
-<!--                   [yaxis]="chartBarOptions.yaxis"-->
-<!--                   [dataLabels]="chartBarOptions.dataLabels"-->
-<!--                   [stroke]="chartBarOptions.stroke"-->
-<!--                   [plotOptions]="chartBarOptions.plotOptions"-->
-<!--        ></apx-chart>-->
-<!--      </div>-->
-    </div>
-
+    </header>
     <article class="bg-core-bg hero homepage__page-speed-hero">
       <div class=wrapper>
         <div class="switcher hero__columns" data-direction=rev>
@@ -67,80 +66,48 @@
                 </svg>
               </button>
               <div class="carousel__track reel scrollbar" aria-label="available courses" data-scroll="snap">
-                <div><a href="/learn/design/" class="card" data-style="branded"><h3 class="visually-hidden">
-                  i18n.courses.learn_design.title</h3>
-                  <div class="repel card__header"><p class="color-mid-text">Course</p>
-                    <div class="t-color-shades-light-bright counter t-bg-core-primary"><span class="counter__content"
-                                                                                             aria-label="17 resources">17</span>
-                      <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-                           aria-label="mortarboard" role="img" fill="currentColor" class="icon">
-                        <path
-                          d="M12.51 3.47a1.29 1.29 0 0 0-1 0L3 7a1.33 1.33 0 0 0 0 2.44L11.49 13a1.38 1.38 0 0 0 1 0L21 9.44A1.33 1.33 0 0 0 21 7Z"></path>
-                        <path
-                          d="M4.71 14.07a1.33 1.33 0 0 1 1.82-1.24l5 2a1.35 1.35 0 0 0 1 0l5-2a1.33 1.33 0 0 1 1.82 1.24v3.1a1.32 1.32 0 0 1-.88 1.25l-6 2.13a1.24 1.24 0 0 1-.89 0l-6-2.13a1.32 1.32 0 0 1-.88-1.25Z"></path>
-                      </svg>
-                    </div>
-                  </div>
-<!--                  <img alt="i18n.courses.learn_design.title branding" src="/images/courses/design/card.svg"-->
-<!--                       importance="high">-->
-                  <div style="text-align:center">
-                  </div>
-                  <div class="flow card__content"><p class="text-size-0">Let's explore all aspects of responsive design,
-                    learning how to make sites that look great and work well for everyone.</p></div>
-                </a></div>
-                <div><a href="/learn/forms/" class="card" data-style="branded"><h3 class="visually-hidden">
-                  i18n.courses.learn_forms.title</h3>
-                  <div class="repel card__header"><p class="color-mid-text">Course</p>
-                    <div class="t-color-shades-light-bright counter t-bg-core-primary"><span class="counter__content"
-                                                                                             aria-label="24 resources">24</span>
-                      <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-                           aria-label="mortarboard" role="img" fill="currentColor" class="icon">
-                        <path
-                          d="M12.51 3.47a1.29 1.29 0 0 0-1 0L3 7a1.33 1.33 0 0 0 0 2.44L11.49 13a1.38 1.38 0 0 0 1 0L21 9.44A1.33 1.33 0 0 0 21 7Z"></path>
-                        <path
-                          d="M4.71 14.07a1.33 1.33 0 0 1 1.82-1.24l5 2a1.35 1.35 0 0 0 1 0l5-2a1.33 1.33 0 0 1 1.82 1.24v3.1a1.32 1.32 0 0 1-.88 1.25l-6 2.13a1.24 1.24 0 0 1-.89 0l-6-2.13a1.32 1.32 0 0 1-.88-1.25Z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div style="text-align:center">
-<!--                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"-->
-<!--                               [series]="chartOptions.series"-->
-<!--                               [chart]="chartOptions.chart"-->
-<!--                               [xaxis]="chartOptions.xaxis"-->
-<!--                               [fill]="chartOptions.fill"-->
-<!--                               [stroke]="chartOptions.stroke"-->
-<!--                               [markers]="chartOptions.markers"-->
-<!--                               [dataLabels]="chartOptions.dataLabels"></apx-chart>-->
-                  </div>
-                  <div class="flow card__content"><p class="text-size-0">A course about HTML forms to help you improve
-                    your web developer expertise.</p></div>
-                </a></div>
-                <div><a href="/learn/pwa/" class="card" data-style="branded"><h3 class="visually-hidden">
-                  i18n.courses.learn_pwa.title</h3>
-                  <div class="repel card__header"><p class="color-mid-text">Course</p>
-                    <div class="t-color-shades-light-bright counter t-bg-core-primary"><span class="counter__content"
-                                                                                             aria-label="25 resources">25</span>
-                      <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-                           aria-label="mortarboard" role="img" fill="currentColor" class="icon">
-                        <path
-                          d="M12.51 3.47a1.29 1.29 0 0 0-1 0L3 7a1.33 1.33 0 0 0 0 2.44L11.49 13a1.38 1.38 0 0 0 1 0L21 9.44A1.33 1.33 0 0 0 21 7Z"></path>
-                        <path
-                          d="M4.71 14.07a1.33 1.33 0 0 1 1.82-1.24l5 2a1.35 1.35 0 0 0 1 0l5-2a1.33 1.33 0 0 1 1.82 1.24v3.1a1.32 1.32 0 0 1-.88 1.25l-6 2.13a1.24 1.24 0 0 1-.89 0l-6-2.13a1.32 1.32 0 0 1-.88-1.25Z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div style="text-align:center">
-<!--                    <apx-chart *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.stroke && chartOptions.fill && chartOptions.dataLabels && chartOptions.markers"-->
-<!--                               [series]="chartOptions.series"-->
-<!--                               [chart]="chartOptions.chart"-->
-<!--                               [xaxis]="chartOptions.xaxis"-->
-<!--                               [fill]="chartOptions.fill"-->
-<!--                               [stroke]="chartOptions.stroke"-->
-<!--                               [markers]="chartOptions.markers"-->
-<!--                               [dataLabels]="chartOptions.dataLabels"></apx-chart>-->
-                  </div>                  <div class="flow card__content"><p class="text-size-0">A course that breaks down every aspect of
-                    modern progressive web app development.</p></div>
-                </a></div>
+
+                <div>
+                  <a href="/learn/pwa/" class="card" data-style="branded">
+                    <mat-grid-list cols="4" rowHeight="100px" class="ticker">
+                      <mat-grid-tile
+                        *ngFor="let tile of tiles"
+                        [colspan]="tile.cols"
+                        [rowspan]="tile.rows"
+                        [style.background]="tile.color">
+                        {{tile.text}}
+                      </mat-grid-tile>
+                    </mat-grid-list>
+                  </a>
+                </div>
+                <div>
+                <a href="/learn/pwa/" class="card" data-style="branded">
+                  <mat-grid-list cols="4" rowHeight="100px" class="ticker">
+<!--                    <mat-grid-tile-->
+<!--                      *ngFor="let tile of tiles2"-->
+<!--                      [colspan]="tile.cols"-->
+<!--                      [rowspan]="tile.rows"-->
+<!--                      [style.background]="tile.color">-->
+<!--                      {{tile.text}}-->
+<!--                    </mat-grid-tile>-->
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                      <img alt="" src="{{logoUrl}}"/>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="2" [rowspan]="1">
+                      ${{tickerOptions.price}}
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                      <mat-grid-tile-header>
+                        <h3>24h percent</h3>
+                        </mat-grid-tile-header>
+                      {{tickerOptions.percentChange24H}}%
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="2" [rowspan]="1">
+
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </a>
+              </div>
                 <div><a href="/learn/css/" class="card" data-style="branded"><h3 class="visually-hidden">
                   i18n.courses.learn_css.title</h3>
                   <div class="repel card__header"><p class="color-mid-text">Course</p>
@@ -186,35 +153,53 @@
           <div class=headline__action><a href="/tags/case-study/" >See all</a></div>
         </div>
         <div class="gap-top-size-2 homepage__case-studies switcher">
-          <article class=card><a href="/terra-dark-mode/" aria-hidden=true><img
-            alt="Terra's logo next to a group of developers working on a device with a dark background."
-            class=card__hero
-            decoding=async height=330 loading=lazy sizes="(min-width: 570px) 570px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format"
-            srcset="https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=200 200w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=228 228w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=260 260w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=296 296w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=338 338w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=385 385w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=439 439w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=500 500w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=571 571w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=650 650w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=741 741w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=845 845w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=964 964w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/26V1DWN36MZr3mUo8ChSBlCpzp43/6o0rt0IM5XkqXsqyulwX.png?auto=format&w=1140 1140w"
-            width=570></a>
-            <div class="flow card__content"><h3 class="card__heading text-size-3"><a
-              href="/terra-dark-mode/" >How Terra improved user engagement thanks to Dark Mode</a></h3>
-              <p>In this article, we'll analyze Terra's journey from identifying the size of the "dark
-                mode" cohort, to applying a custom dark theme, and finally measuring the impact of this
-                implementation on their main KPIs.</p></div>
-            <div aria-label="tags for this case study" class="cluster card__tags gap-top-size-1"><a
-              href="/tags/case-study/ "class="pill">Case Study</a> <a href="/tags/css/" class="pill">CSS</a>
+          <article class=card>
+            <div class="chart-box">
+              <div id="chart-candlestick" *ngIf="chartCandleOptions">
+                <mat-button-toggle-group (change)="onValChange($event.value)" name="timeFrame" aria-label="Time frame">
+                  <mat-button-toggle value="1M">1M</mat-button-toggle>
+                  <mat-button-toggle value="6M">6M</mat-button-toggle>
+                  <mat-button-toggle value="1Y">1Y</mat-button-toggle>
+                </mat-button-toggle-group>
+                <apx-chart #ohlcvChart
+                           [title]="chartCandleOptions.title"
+                           [series]="chartCandleOptions.series"
+                           [chart]="chartCandleOptions.chart"
+                           [tooltip]="chartCandleOptions.tooltip"
+                           [xaxis]="chartCandleOptions.xaxis"
+                           [plotOptions]="chartCandleOptions.plotOptions" ></apx-chart>
+              </div>
+              <!--      <div id="chart-bar">-->
+              <!--        <apx-chart *ngIf="chartBarOptions.series && chartBarOptions.dataLabels &&  chartBarOptions.xaxis && chartBarOptions.chart &&  chartBarOptions.yaxis && chartBarOptions.stroke && chartBarOptions.plotOptions"-->
+              <!--                   #chartBar-->
+              <!--                   [series]="chartBarOptions.series"-->
+              <!--                   [chart]="chartBarOptions.chart"-->
+              <!--                   [xaxis]="chartBarOptions.xaxis"-->
+              <!--                   [yaxis]="chartBarOptions.yaxis"-->
+              <!--                   [dataLabels]="chartBarOptions.dataLabels"-->
+              <!--                   [stroke]="chartBarOptions.stroke"-->
+              <!--                   [plotOptions]="chartBarOptions.plotOptions"-->
+              <!--        ></apx-chart>-->
+              <!--      </div>-->
             </div>
+
+
           </article>
-          <article class=card><a href="/quintoandar/" aria-hidden=true><img
-            alt="A picture of a city skyline on a clear, sunny day. At center is the QuintoAndar logo in white."
-            class=card__hero
-            decoding=async height=330 loading=lazy sizes="(min-width: 570px) 570px, calc(100vw - 48px)" src="https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format"
-            srcset="https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=200 200w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=228 228w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=260 260w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=296 296w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=338 338w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=385 385w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=439 439w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=500 500w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=571 571w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=650 650w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=741 741w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=845 845w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=964 964w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=1098 1098w, https://web-dev.imgix.net/image/jL3OLOhcWUQDnR4XjewLBx4e3PC3/VQrzs5OoWZT2qS8yTzGW.jpg?auto=format&w=1140 1140w"
-            width=570></a>
-            <div class="flow card__content"><h3 class="card__heading text-size-3"><a href="quintoandar/" >How
-              QuintoAndar increased conversion rates and pages per session by improving page
-              performance</a></h3>
-              <p>A project focused on optimizing Core Web Vitals and migrating to Next.js resulted in a 5%
-                increase in conversion rates and a 87% increase in pages per session.</p></div>
-            <div aria-label="tags for this case study" class="cluster card__tags gap-top-size-1"><a
-              href="/tags/case-study/" class="pill">Case Study</a> <a href="/tags/web-vitals/" class="pill">Web
-              Vitals</a></div>
+          <article class=card>
+            <div class="chart-box">
+              <mat-button-toggle-group (change)="onValChange($event.value)" name="timeFrame" aria-label="Time frame">
+                <mat-button-toggle value="1M">1M</mat-button-toggle>
+                <mat-button-toggle value="6M">6M</mat-button-toggle>
+                <mat-button-toggle value="1Y">1Y</mat-button-toggle>
+              </mat-button-toggle-group>
+              <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [fill]="chartOptions.fill"
+              [stroke]="chartOptions.stroke"
+              [markers]="chartOptions.markers"
+              [dataLabels]="chartOptions.dataLabels"></apx-chart></div>
           </article>
         </div>
       </div>

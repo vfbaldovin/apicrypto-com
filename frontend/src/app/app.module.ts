@@ -28,6 +28,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     FooterComponent,
     RecoverPasswordComponent,
     TokenVerificationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    DashboardComponent
   ],
     imports: [
         BrowserModule,
@@ -62,7 +65,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
         MatSidenavModule,
         MatButtonModule,
         FlexLayoutModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatGridListModule
     ],
   providers: [],
   bootstrap: [AppComponent]

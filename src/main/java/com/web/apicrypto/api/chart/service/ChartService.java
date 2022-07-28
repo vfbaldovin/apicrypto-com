@@ -1,5 +1,6 @@
 package com.web.apicrypto.api.chart.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.web.apicrypto.api.chart.model.*;
 import com.web.apicrypto.api.utils.UrlBuilder;
 import com.web.apicrypto.webapp.exceptions.ApiCryptoException;
@@ -15,9 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -56,12 +55,11 @@ public class ChartService {
         List<Object> chartResponses = new ArrayList<>();
         USD usd = quote.getQuote().getUSD();
         long timestamp = Instant.parse(usd.getTimestamp()).getEpochSecond();
-        DecimalFormat df = new DecimalFormat("#.##");
         chartResponses.add(timestamp * 1000);
-        chartResponses.add(Double.valueOf(df.format(usd.getOpen())));
-        chartResponses.add(Double.valueOf(df.format(usd.getHigh())));
-        chartResponses.add(Double.valueOf(df.format(usd.getLow())));
-        chartResponses.add(Double.valueOf(df.format(usd.getClose())));
+        chartResponses.add(roundDouble(usd.getOpen()));
+        chartResponses.add(roundDouble(usd.getHigh()));
+        chartResponses.add(roundDouble(usd.getLow()));
+        chartResponses.add(roundDouble(usd.getClose()));
 
         return chartResponses;
     }
@@ -78,4 +76,56 @@ public class ChartService {
             throw new ApiCryptoException(ApiHttpStatus.UNKNOWN_EXCEPTION.getMessage());
         }
     }
+
+    public TickerResponse getTicker(String id) {
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(ClientEndpoint.QUOTES_LATEST);
+        url.queryParam("id", id);
+
+
+        try {
+            JsonNode quotesRespone = restTemplate.getForObject(url.build().toUriString(), JsonNode.class);
+            if (quotesRespone == null) {
+                return new TickerResponse();
+            }
+            String name = quotesRespone.get("data").get("1").get("name").asText("");
+            String symbol = quotesRespone.get("data").get("1").get("symbol").asText("");
+            double price = quotesRespone.get("data").get("1").get("quote").get("USD").get("price").asDouble(0);
+            double percentChange24H = quotesRespone.get("data").get("1").get("quote").get("USD").get("percent_change_24h").asDouble(0);
+
+            return TickerResponse.builder()
+                    .name(name)
+                    .symbol(symbol)
+                    .percentChange24H(roundDouble(percentChange24H))
+                    .price(roundDouble(price))
+                    .build();
+
+        } catch (HttpClientErrorException e) {
+            log.info("Bad Url request " + e.getMessage());
+            throw new ApiCryptoException("Bad Url request");
+        }
+    }
+
+    public byte[] getLogo(String size, String id) {
+        if (size == null || !Arrays.asList("16x16", "32x32", "64x64", "128x128").contains(size)) {
+            throw new ApiCryptoException("The size must be 16x16, 32x32, 64x64 or 128x128");
+        }
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(ClientEndpoint.LOGO);
+
+        url.pathSegment(size).pathSegment(id);
+
+        try {
+            return restTemplate.getForObject(url.build().toUriString() + ".png", byte[].class);
+        } catch (HttpClientErrorException e) {
+            if (e.getRawStatusCode() == 403) {
+                throw new ApiCryptoException("Image not found");
+            }
+            throw new ApiCryptoException("Invalid request");
+        }
+    }
+
+    private Double roundDouble(Double value) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return Double.valueOf(df.format(value));
+    }
+
 }
